@@ -26,19 +26,19 @@ public class FireControl {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("car");
 
-    private void writeNewCar(Car carro){
+    public void writeNewCar(Car car){
         myRef = database.getReference("message");
         String key = myRef.child("carros").push().getKey();
-        Map<String, Object> carroValues = carro.toMap();
+        Map<String, Object> carValues = car.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/carros/" + key, carroValues);
+        childUpdates.put("/carros/" + key, carValues);
         myRef.updateChildren(childUpdates);
     }
 
-    public List<Car> retrive_all_cars(){
+    public ArrayList<Car> retrive_all_cars(){
         myRef = database.getReference("message/carros/");
-        final List<Car> list_car = new ArrayList<Car>();
+        final ArrayList<Car> list_car = new ArrayList<Car>();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
